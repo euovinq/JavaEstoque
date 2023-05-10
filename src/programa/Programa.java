@@ -29,7 +29,7 @@ public class Programa {
 		navegacao.cadastrarProduto(0007, "Arroz", "Tio João Integral", 9.49, 30, LocalDate.parse("02/05/2024",fmt),  LocalDate.parse("09/08/2025",fmt),"1");
 		
 		
-		
+		navegacao.login();
 		while(true){
 			
 			navegacao.limparTela();
@@ -44,7 +44,7 @@ public class Programa {
 			} else if(op == 2) {
 				
 				navegacao.limparTela();
-				System.out.println("Menu de edição");
+				navegacao.editarProduto();
 				continue;
 			} else if(op == 3) {
 				navegacao.relatorio();

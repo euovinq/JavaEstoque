@@ -31,7 +31,6 @@ public class Navegacao {
 	}
 
 	public void menuPrincipal() throws InterruptedException, IOException {
-		login();
 		limparTela();
 		System.out.println("Software de Mercado\n");
 		System.out.println("1 - Cadastro de Item");
@@ -69,14 +68,90 @@ public class Navegacao {
 		}
 	}
 
-	public void editarProduto() {
+	public void editarProduto() throws InterruptedException, IOException {
+		
+		limparTela();
+		Scanner sc = new Scanner(System.in);
+		
+		for (Produto itemProduto : produtos) {
+			
+			System.out.printf("%d - %s \n", itemProduto.getCod(), itemProduto.getNome());
+			
+		}
+		System.out.println("Digite o codigo para editar um produto: ");
+		int op = sc.nextInt();
+		
+		for(Produto item : produtos) {
+			
+			if(op == item.getCod()) {
+				
+				limparTela();
+				System.out.println("Menu de Edição\n");
+				System.out.println("1 - Editar Quantidade");
+				System.out.println("2 - Editar Nome");
+				System.out.println("3 - Editar Valor");
+				System.out.println("4 - Retornar ao Menu");
+				System.out.println("5 - Sair");
+				System.out.print("Digite uma opção: ");
+				
+				int opcao = sc.nextInt();
+				
+				switch (opcao) {
+				case 1:
+					limparTela();
+					System.out.print("Digite a nova quantidade: ");
+					item.setQuantidade(sc.nextInt());
+					System.out.println("Quantidade alterada com sucesso");
+					System.out.println();
+					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
+					sc.next();
+					break;
+					
+				case 2:
+					limparTela();
+					System.out.print("Digite o novo nome: ");
+					sc.nextLine();
+					item.setNome(sc.nextLine());;
+					System.out.println("Nome alterado com sucesso");
+					System.out.println();
+					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
+					sc.next();
+					break;
+					
+				case 3:
+					limparTela();
+					System.out.print("Digite o novo valor: ");
+					item.setValor(sc.nextDouble());
+					System.out.println("Valor alterado com sucesso");
+					System.out.println();
+					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
+					sc.next();
+					break;
+					
+				case 4:
+					voltarAoMenu();
+					break;
+				case 5:
+					sair();
+					break;
 
-		System.out.println("Menu de Edição\n");
-		System.out.println("1 - Editar Quantidade");
-		System.out.println("2 - Editar Nome");
-		System.out.println("3 - Editar Valor");
-		System.out.println("4 - Retornar ao Menu");
-		System.out.println("5 - Sair");
+				default:
+					System.out.println("Opção Inválida");
+					
+					
+				}
+				
+				
+			} 
+			
+			
+			
+		}
+		
+		
+		
+		
+
 
 	}
 
@@ -246,5 +321,6 @@ public class Navegacao {
 		String opcao = sc.next();
 
 	}
+	
 
 }
