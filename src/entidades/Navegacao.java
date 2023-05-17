@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class Navegacao {
 	
+	DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	
 	
 	Estoque estoque = new Estoque(); 
 
@@ -37,7 +39,7 @@ public class Navegacao {
 
 			if (user.equals(usuario) && pass.equals(senha)) {
 
-				
+				sc.close();
 				break;
 				
 
@@ -45,6 +47,7 @@ public class Navegacao {
 				System.out.println();
 				System.out.println("Usuário ou Senha incorreta.");
 				pressionarTecla();
+				sc.close();
 				continue;
 			}
 		}
@@ -87,6 +90,7 @@ public class Navegacao {
 					System.out.println();
 					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
 					sc.next();
+					sc.close();
 					break;
 					
 				case 2:
@@ -98,6 +102,7 @@ public class Navegacao {
 					System.out.println();
 					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
 					sc.next();
+					sc.close();
 					break;
 					
 				case 3:
@@ -108,17 +113,21 @@ public class Navegacao {
 					System.out.println();
 					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
 					sc.next();
+					sc.close();
 					break;
 					
 				case 4:
 					voltarAoMenu();
+					sc.close();
 					break;
 				case 5:
 					sair();
+					sc.close();
 					break;
 
 				default:
 					System.out.println("Opção Inválida");
+					sc.close();
 					
 					
 				}
@@ -137,25 +146,7 @@ public class Navegacao {
 
 	}
 
-	public void relatorio() throws InterruptedException, IOException {
 
-		limparTela();
-		System.out.println("### Relatório ###");
-		System.out.println();
-		for (Produto x : estoque.getProdutos()) {
-			System.out.printf("#000%d / %s / %s / %d un / R$ %.2f / ", x.getCod(), x.getNome(), x.getMarcaDescricao(),
-					x.getQuantidade(), x.getValor());
-			if (estoque.diasValidade(x) > 0) {
-				System.out.printf("Produto vence em %d dias, Gondola %s", estoque.diasValidade(x), x.getGondola());
-				System.out.println();
-			} else {
-				System.err.print("Produto está vencido, Retirar da Gondola " + x.getGondola());
-				System.out.println();
-			}
-			System.out.println();
-		}
-
-	}
 
 	
 
@@ -225,6 +216,7 @@ public class Navegacao {
 				if (opcao.toLowerCase().charAt(0) == 's') {
 					continue;
 				} else {
+					sc.close();
 					break;
 				}
 				
@@ -264,7 +256,7 @@ public class Navegacao {
 			if (opcao.toLowerCase().charAt(0) == 's') {
 
 				limparTela();
-				menuPrincipal();
+				sc.close();
 				break;
 			} else {
 				limparTela();
@@ -280,7 +272,39 @@ public class Navegacao {
 		System.out.println();
 		System.out.print("Digite qualquer coisa para voltar ao inicio : ");
 		String opcao = sc.next();
+		sc.close();
 
+	}
+	
+	public void relatorio() {
+		System.out.println("### Relatório ###");
+		System.out.println();
+		for (Produto x : estoque.getProdutos()) {
+			System.out.printf("#000%d / %s / %s / %d un / R$ %.2f / ", x.getCod(), x.getNome(), x.getMarcaDescricao(),
+					x.getQuantidade(), x.getValor());
+			if (estoque.diasValidade(x) > 0) {
+				System.out.printf("Produto vence em %d dias, Gondola %s", estoque.diasValidade(x), x.getGondola());
+				System.out.println();
+			} else {
+				System.out.print("Produto está vencido, Retirar da Gondola " + x.getGondola());
+				System.out.println();
+			}
+			System.out.println();
+		}
+
+	}
+	
+	public void listarProdutosVencidos() {
+		System.out.println("Listar Produtos que vencem em 30 dias ou vencidos");
+		System.out.println();
+		for(Produto x : estoque.getProdutos()) {
+
+			if(estoque.diasValidade(x) <= 30){
+
+				System.out.println("Nome: " + x.getNome() + " Validade: " + fmt.format(x.getValidade()));
+			}
+			
+		}
 	}
 	
 
