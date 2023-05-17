@@ -3,33 +3,15 @@ package entidades;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-
 import java.util.Scanner;
 
-import javax.xml.transform.sax.SAXSource;
 
 public class Navegacao {
+	
+	
+	Estoque estoque = new Estoque(); 
 
-	private ArrayList<Produto> produtos = new ArrayList<>();
-
-	public ArrayList<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void cadastrarProduto(Produto x) {
-		produtos.add(x);
-	}
-
-	public void cadastrarProduto(int codigo, String nome, String descricao, double valor, int quantidade,
-			LocalDate validade, LocalDate fabricacao, String gondola) {
-
-		Produto prod = new Produto(nome, valor, quantidade, validade, fabricacao, codigo, descricao, gondola);
-
-		produtos.add(prod);
-	}
-
+	
 	public void menuPrincipal() throws InterruptedException, IOException {
 		limparTela();
 		System.out.println("Software de Mercado\n");
@@ -73,7 +55,7 @@ public class Navegacao {
 		limparTela();
 		Scanner sc = new Scanner(System.in);
 		
-		for (Produto itemProduto : produtos) {
+		for (Produto itemProduto : estoque.getProdutos()) {
 			
 			System.out.printf("%d - %s \n", itemProduto.getCod(), itemProduto.getNome());
 			
@@ -81,7 +63,7 @@ public class Navegacao {
 		System.out.println("Digite o codigo para editar um produto: ");
 		int op = sc.nextInt();
 		
-		for(Produto item : produtos) {
+		for(Produto item : estoque.getProdutos()) {
 			
 			if(op == item.getCod()) {
 				
@@ -160,11 +142,11 @@ public class Navegacao {
 		limparTela();
 		System.out.println("### Relatório ###");
 		System.out.println();
-		for (Produto x : produtos) {
+		for (Produto x : estoque.getProdutos()) {
 			System.out.printf("#000%d / %s / %s / %d un / R$ %.2f / ", x.getCod(), x.getNome(), x.getMarcaDescricao(),
 					x.getQuantidade(), x.getValor());
-			if (diasValidade(x) > 0) {
-				System.out.printf("Produto vence em %d dias, Gondola %s", diasValidade(x), x.getGondola());
+			if (estoque.diasValidade(x) > 0) {
+				System.out.printf("Produto vence em %d dias, Gondola %s", estoque.diasValidade(x), x.getGondola());
 				System.out.println();
 			} else {
 				System.err.print("Produto está vencido, Retirar da Gondola " + x.getGondola());
@@ -175,10 +157,7 @@ public class Navegacao {
 
 	}
 
-	public void listarValidades() {
-
-		System.out.println("Listar Validades\n");
-	}
+	
 
 	public boolean sair() {
 
@@ -237,7 +216,7 @@ public class Navegacao {
 				Produto prod = new Produto(nome, preco, quantidade, validade, fabricacao, codigo, marcaDescricao,
 						gondola);
 
-				cadastrarProduto(prod);
+				estoque.cadastrarProduto(prod);
 
 				System.out.println();
 				System.out.print("Deseja cadastrar mais um item? ");
@@ -248,8 +227,11 @@ public class Navegacao {
 				} else {
 					break;
 				}
+				
+				
 
 			}
+			
 
 		} catch (java.time.format.DateTimeParseException e) {
 			System.out.println("Você digitou a Data errado! Digite certo na próxima.");
@@ -261,27 +243,6 @@ public class Navegacao {
 			System.out.println(e.getMessage());
 			pressionarTecla();
 		}
-	}
-
-	public int testarQtdValidade(Produto x) {
-
-		int cont = 0;
-		for (Produto prod : produtos) {
-
-			if (diasValidade(prod) >= 0 && diasValidade(prod) <= 30) {
-
-				cont++;
-			}
-
-		}
-		return cont;
-	}
-
-	public int diasValidade(Produto x) {
-
-		int periodo = (int) ChronoUnit.DAYS.between(LocalDate.now(), x.getValidade());
-
-		return periodo;
 	}
 
 	public void limparTela() throws InterruptedException, IOException {
