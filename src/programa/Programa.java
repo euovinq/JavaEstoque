@@ -11,13 +11,14 @@ public class Programa {
 	public static void main(String[] args) throws InterruptedException, IOException {
 		
 		Navegacao navegacao = new Navegacao();
-		Scanner sc = new Scanner(System.in);
+
 		Locale.setDefault(Locale.US);
-		
+		Scanner sc = new Scanner(System.in);
 		
 		
 		navegacao.login();
 		while(true){
+
 			
 			navegacao.limparTela();
 			navegacao.menuPrincipal();
@@ -37,10 +38,12 @@ public class Programa {
 				
 				navegacao.relatorio();
 				navegacao.voltarAoMenu();
+
 				continue;
 			} else if(op == 4) {
 				navegacao.limparTela();
 				navegacao.listarProdutosVencidos();
+
 				navegacao.voltarAoMenu();
 				
 			}else if(op == 5){
@@ -49,8 +52,10 @@ public class Programa {
 				String opcao = sc.next();
 				if(opcao.toLowerCase().charAt(0) == 's') {
 					System.out.println("Você saiu do programa");
+
 					break;
 				}else {
+
 					continue;
 				}
 
@@ -62,14 +67,14 @@ public class Programa {
 			
 			
 			
-				
+			
 			
 			
 		}
 		
 		
-		sc.close();
 		
+		sc.close();
 		
 		
 	}

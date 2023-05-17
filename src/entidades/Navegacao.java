@@ -39,7 +39,6 @@ public class Navegacao {
 
 			if (user.equals(usuario) && pass.equals(senha)) {
 
-				sc.close();
 				break;
 				
 
@@ -47,7 +46,6 @@ public class Navegacao {
 				System.out.println();
 				System.out.println("Usuário ou Senha incorreta.");
 				pressionarTecla();
-				sc.close();
 				continue;
 			}
 		}
@@ -90,7 +88,6 @@ public class Navegacao {
 					System.out.println();
 					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
 					sc.next();
-					sc.close();
 					break;
 					
 				case 2:
@@ -102,7 +99,6 @@ public class Navegacao {
 					System.out.println();
 					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
 					sc.next();
-					sc.close();
 					break;
 					
 				case 3:
@@ -113,21 +109,17 @@ public class Navegacao {
 					System.out.println();
 					System.out.println("Digite alguma coisa e aperte enter para voltar ao menu");
 					sc.next();
-					sc.close();
 					break;
 					
 				case 4:
 					voltarAoMenu();
-					sc.close();
 					break;
 				case 5:
 					sair();
-					sc.close();
 					break;
 
 				default:
 					System.out.println("Opção Inválida");
-					sc.close();
 					
 					
 				}
@@ -155,7 +147,6 @@ public class Navegacao {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Deseja realmente sair?");
 		Character op = sc.next().toLowerCase().charAt(0);
-		sc.close();
 		if (op == 's') {
 
 			System.out.println("Saindo...");
@@ -188,18 +179,17 @@ public class Navegacao {
 				System.out.print("Digite a Preço: ");
 				Double preco = sc.nextDouble();
 
-				System.out.print("Digite a o Código do Produto: ");
-				int codigo = sc.nextInt();
+				
+				int codigo = estoque.getProdutos().size() + 1;
 
 				System.out.print("Digite a Validade do Produto: ");
 				LocalDate validade = LocalDate.parse(sc.next(), fmt);
 
 				System.out.print("Digite a Fabricacao do Produto: ");
 				LocalDate fabricacao = LocalDate.parse(sc.next(), fmt);
-
+				sc.nextLine();
 				System.out.print("Digite a Marca e Descrição do produto: ");
 				String marcaDescricao = sc.nextLine();
-				sc.nextLine();
 
 				System.out.print("Digite a Gondola que o produto estará: ");
 				String gondola = sc.nextLine();
@@ -216,7 +206,6 @@ public class Navegacao {
 				if (opcao.toLowerCase().charAt(0) == 's') {
 					continue;
 				} else {
-					sc.close();
 					break;
 				}
 				
@@ -246,9 +235,10 @@ public class Navegacao {
 
 	public void voltarAoMenu() throws InterruptedException, IOException {
 
-		Scanner sc = new Scanner(System.in);
+		
 
 		while (true) {
+			Scanner sc = new Scanner(System.in);
 			System.out.println();
 			System.out.print("Voltar ao Menu Principal ? s/n ");
 			String opcao = sc.next();
@@ -256,7 +246,6 @@ public class Navegacao {
 			if (opcao.toLowerCase().charAt(0) == 's') {
 
 				limparTela();
-				sc.close();
 				break;
 			} else {
 				limparTela();
@@ -272,7 +261,6 @@ public class Navegacao {
 		System.out.println();
 		System.out.print("Digite qualquer coisa para voltar ao inicio : ");
 		String opcao = sc.next();
-		sc.close();
 
 	}
 	

@@ -9,7 +9,7 @@ public class Estoque {
 	
 	 private ArrayList<Produto> produtos = new ArrayList<>();
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	
+		
 	 
 	public Estoque() {
 		
