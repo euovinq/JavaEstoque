@@ -64,25 +64,12 @@ public class Programa {
 				System.out.println("Opção Inválida!");
 				continue;
 			}
-			
-			
-			
-			
-			
-			
+		
 		}
-		
-		
-		
+	
 		sc.close();
-		
-		
+	
 	}
-		
-		
-		//comentario teste
-
-		
 		
 	}
 	
